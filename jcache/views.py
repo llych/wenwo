@@ -6,12 +6,8 @@ from jumpserver.api import *
 from jperm.perm_api import user_have_perm
 from django.http import HttpResponseNotFound
 
-from jumpserver.settings import LOG_DIR
-import zipfile
-import json
-import pyte
+
 import requests
-# logger.debug("ffffffff")
 
 
 def purl_url(url):
@@ -50,8 +46,5 @@ def cache_urls(request):
             fail += 1
 
     return HttpResponse(json.dumps({'success':success,'fail':fail}))
-    # return my_render('jcache/cache_refresh.html', locals(), request)
 
-@require_role('admin')
-def log_detail(request):
-    return my_render('jcache/cache_refresh.html', locals(), request)
+

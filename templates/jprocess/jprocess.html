@@ -109,7 +109,7 @@
                                     </td>
                                     <td>
                                         <button class="btn btn-primary btn-xs"
-                                                onclick="tail_log('{{ info.id }}', '{{ info.group}}', '{{ info.name}}')">
+                                                onclick="jprocess_tail_log('{{ info.id }}', '{{ info.group}}', '{{ info.name}}')">
                                             TAIL
                                         </button>
                                     </td>
@@ -127,6 +127,25 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="dialog_log" href="/jprocess/jprocess/jprocess_list/" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">日志</h4>
+          </div>
+          <div class="modal-body">
+            <div id="loginfo" style="overflow-y:auto;max-height:420px;" ></div>
+          </div>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+            <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
 {% endblock %}
 
@@ -143,9 +162,13 @@
 {% endblock %}
 {% block self_footer_js %}
 <script>
+    function jprocess_tail_log(server_id, group, app) {
+        $('#dialog_log').modal();
+        $("#loginfo").load("/");
+                // window.open("/" + server_id + "/" + group + "/" + app + "/tail/")
+            };
     $(document).ready(function(){
-
-
+        
     });
 </script>
 {% endblock %}

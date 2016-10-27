@@ -28,3 +28,11 @@
 * 进程管理(supervisor rpc)  
 
 ![varnish](./screenshots/jcache.gif)
+
+
+
+## 更新日志
+
+> 2016-10-27 初步实现 web 操作 supervisor  rpc ,进行 进程管理
+
+![jprocess](./screenshots/jprocess.gif)

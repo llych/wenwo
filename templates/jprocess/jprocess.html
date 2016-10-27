@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load mytags %}
+{% block content %}
+{% include 'nav_cat_bar.html' %}
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-10">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-title">
+                    <h5> 进程管理 </h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="ibox-content">
+
+                    <ul class="nav nav-pills">
+                        <li role="presentation" class="active"><a href="/">组列表</a></li>
+                        <li role="presentation"><a href="/servers">服务器列表</a></li>
+                    </ul>
+                     <div class="page-header">
+                <h1>组
+                    <small>管理</small>
+                </h1>
+            </div>
+            {% for app in apps %}
+                <div class="panel-group" role="tablist">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h4><strong><a class="collapsed" role="button" data-toggle="collapse" href="#{{ app.0 }}"
+                                                   aria-expanded="false">
+                                        {{ app.0 }}
+                                    </a></strong></h4>
+                                </div>
+                                <div class="col-md-8">
+                                    <button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top"
+                                            title="Caution: start apps in the group!"
+                                            onclick="batch_group_opt('{{ app.0 }}', 'start')">批量启动
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top"
+                                            title="Caution: stop apps in the group!"
+                                            onclick="batch_group_opt('{{ app.0 }}', 'stop')">批量停止
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top"
+                                            title="Caution: restart apps in the group!"
+                                            onclick="batch_group_opt('{{ app.0 }}', 'restart')">批量重启
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="{{ app.0 }}" class="panel-collapse collapse" role="tabpanel"
+                             aria-expanded="false" style="height: 0px;">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th width="10%">状态</th>
+                                    <th width="10%">应用</thw>
+                                    <th width="40%">位置</th>
+                                    <th width="30%">信息</th>
+                                    <th colspan="4" width="10%">操作</th>
+                                </tr>
+                                {% for info in app.1 %}
+
+                                    <tr>
+                                    <td>
+                                        {% if info.state == 0 %}
+                                            <span style="background-color: lightgray">
+                                        {% elif info.state == 10 %}
+                                            <span style="background-color: yellow">
+                                        {% else %}
+                                            <span style="background-color: lightgreen">
+                                        {% endif %}
+                                        {{ info.statename }}
+                                        </span>
+                                    </td>
+                                    <td>{{ info.name}}</td>
+                                    <td>{{ info.user }}@{{ info.host }}: {{ info.port }}</td>
+                                    <td>{{ info.description }}</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-xs"
+                                                onclick="app_opt('{% url 'jprocess_list' %}' + '{{ info.id }}', '{{ info.group}}', '{{ info.name}}', 'start')">
+                                            启动
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-primary btn-xs"
+                                                onclick="app_opt('{% url 'jprocess_list' %}' + '{{ info.id }}', '{{ info.group}}', '{{ info.name}}', 'restart')">
+                                            重启
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-primary btn-xs"
+                                                onclick="app_opt('{% url 'jprocess_list' %}' + '{{ info.id }}', '{{ info.group}}', '{{ info.name}}', 'stop')">
+                                            停止
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-primary btn-xs"
+                                                onclick="tail_log('{{ info.id }}', '{{ info.group}}', '{{ info.name}}')">
+                                            TAIL
+                                        </button>
+                                    </td>
+                                    </td>
+                                {% endfor %}
+                            </table>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block self_head_css_js %}
+
+    {% load staticfiles %}
+    <script src="{% static 'js/jquery.shiftcheckbox.js' %}"></script>
+    <script src="{% static 'js/layer/layer.js' %}"></script>
+    <script src="{% static 'js/jquery.mloading.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.mloading.css' %}" />
+    <script src="{% static 'js/app.js' %}"></script>
+
+
+{% endblock %}
+{% block self_footer_js %}
+<script>
+    $(document).ready(function(){
+
+
+    });
+</script>
+{% endblock %}

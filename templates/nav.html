@@ -14,9 +14,17 @@
                 </ul>
             </li>
             <li id="jcache">
-                <a href="#"><i class="fa fa-group"></i> <span class="nav-label">缓存管理</span><span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-truck"></i> <span class="nav-label">缓存管理</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li class="cache"><a href="{% url 'cache_refresh' %}">刷新缓存</a></li>
+<!--                     <li class="group"><a href=#>刷新缓存</a></li>
+                    <li class="group"><a href=#>设置</a></li> -->
+                </ul>
+            </li>
+            <li id="jprocess">
+                <a href="#"><i class="fa fa-thumbs-up 管理"></i> <span class="nav-label">进程管理</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li class="cache"><a href="{% url 'jprocess_list' %}">supervisor管理</a></li>
 <!--                     <li class="group"><a href=#>刷新缓存</a></li>
                     <li class="group"><a href=#>设置</a></li> -->
                 </ul>

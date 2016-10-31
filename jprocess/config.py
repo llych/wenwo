@@ -8,13 +8,13 @@ SERVERS = [
         user='user',
         password='123'
     ),
-    #Server(
-    #    name='celery2',
-    #    host='remote.supervisor.com',
-    #    port=12345,
-    #    user='admin',
-    #    password='admin'
-    #)
+    Server(
+        name='java-platform',
+        host='192.168.1.58',
+        port=9002,
+        user='deploy',
+        password='ODk4Nwo=15532OTk3Mgo='
+    )
 ]
 
 GROUPS = [
@@ -22,8 +22,8 @@ GROUPS = [
         'name': 'jumpserver',
         'apps': ['jumpserver.jumpserver',]
     },
-    #{
-    #    'name': 'flower',
-    #    'apps': ['celery1.flower']
-    #}
+    {
+        'name': 'java-platform',
+        'apps': ['java-platform.wenwo-platform']
+    }
 ]

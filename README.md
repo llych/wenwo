@@ -25,7 +25,7 @@
 
 * varnish 缓存刷新  (完成)
 * 上线管理
-* 进程管理(supervisor rpc)  
+* 进程管理(supervisor rpc)   (完成)
 
 ![varnish](./screenshots/jcache.gif)
 

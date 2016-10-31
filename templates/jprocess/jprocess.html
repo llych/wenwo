@@ -25,12 +25,12 @@
 
                 <div class="ibox-content">
 
-                    <ul class="nav nav-pills">
-                        <li role="presentation" class="active"><a href="/">组列表</a></li>
+<!--                     <ul class="nav nav-pills">
+                        <li role="presentation" class="active"><a href="#">组列表</a></li>
                         <li role="presentation"><a href="/servers">服务器列表</a></li>
-                    </ul>
+                    </ul> -->
                      <div class="page-header">
-                <h1>组
+                <h1>进程组
                     <small>管理</small>
                 </h1>
             </div>
@@ -137,6 +137,7 @@
             <h4 class="modal-title" id="myModalLabel">日志</h4>
           </div>
           <div class="modal-body">
+          <span id="out"></span>
             <div id="loginfo" style="overflow-y:auto;max-height:420px;" ></div>
           </div>
           <div class="modal-footer">
@@ -163,8 +164,9 @@
 {% block self_footer_js %}
 <script>
     function jprocess_tail_log(server_id, group, app) {
+        $('#out').text = "xxxoo";
         $('#dialog_log').modal();
-        $("#loginfo").load("/");
+        // $("#loginfo").load("/");
                 // window.open("/" + server_id + "/" + group + "/" + app + "/tail/")
             };
     $(document).ready(function(){

@@ -79,7 +79,8 @@ INSTALLED_APPS = (
     'jasset',
     'jperm',
     'jlog',
-    'jcache'
+    'jcache',
+    'jdeploy'
 )
 
 MIDDLEWARE_CLASSES = (

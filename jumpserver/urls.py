@@ -19,4 +19,5 @@ urlpatterns = patterns('jumpserver.views',
     url(r'^jasset/', include('jasset.urls')),
     url(r'^jlog/', include('jlog.urls')),
     url(r'^jperm/', include('jperm.urls')),
+    url(r'^jdeploy/', include('jdeploy.urls')),
 )

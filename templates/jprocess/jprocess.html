@@ -142,7 +142,7 @@
           </div>
           <div class="modal-footer">
             <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-            <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="close">确定</button>
           </div>
         </div>
       </div>
@@ -163,14 +163,29 @@
 {% endblock %}
 {% block self_footer_js %}
 <script>
+    var ws = "";
     function jprocess_tail_log(server_id, group, app) {
-        $('#out').text = "xxxoo";
+        // $('#out').text = "xxxoo";
+        host = window.location.host
+        wsUrl = 'ws://' + host +'/ws/log'
         $('#dialog_log').modal();
+        $("#loginfo").html(host);
+        ws = new WebSocket(wsUrl);
+        console.log(ws);
+        ws.onmessage = function(event) {
+                document.getElementById('loginfo').innerHTML = event.data;
+            };
         // $("#loginfo").load("/");
                 // window.open("/" + server_id + "/" + group + "/" + app + "/tail/")
             };
     $(document).ready(function(){
-        
+        $("#close").click(function(){
+            console.log(ws);
+            ws.close()
+        });
     });
+
+
+
 </script>
 {% endblock %}

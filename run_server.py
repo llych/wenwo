@@ -459,6 +459,15 @@ class WebTerminalHandler(tornado.websocket.WebSocketHandler):
 #     def on_close(self):
 #         self.close()
 
+class JprocessLog(tornado.websocket.WebSocketHandler):
+    def open(self):
+        for i in xrange(10):
+            self.write_message('Welcome to WebSocket' + str(i))
+            time.sleep(1)
+    def on_close(self):
+        # print 'exit',self.request.remote_ip
+        pass
+
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -498,6 +507,7 @@ def main():
             (r'/ws/exec', ExecHandler),
             (r"/static/(.*)", tornado.web.StaticFileHandler,
              dict(path=os.path.join(os.path.dirname(__file__), "static"))),
+            (r'/ws/log', JprocessLog),
             ('.*', tornado.web.FallbackHandler, dict(fallback=container)),
         ], **setting)
 

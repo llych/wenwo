@@ -20,7 +20,7 @@ def purl_url(url):
 
 @require_role('admin')
 def jprocess_list(request):
-    """ 进程管理 """
+    """ 进程管理 列出进程 """
     apps=get_status(group_mapping)
     path1 , path2 ='进程管理','supervisor管理'
     return my_render('jprocess/jprocess.html',locals(),request)

@@ -129,8 +129,8 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="dialog_log" href="/jprocess/jprocess/jprocess_list/" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
+    <div class="modal fade bs-example-modal-lg" id="dialog_log"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" style="width:70%; height:100%;">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -142,7 +142,8 @@
           </div>
           <div class="modal-footer">
             <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-            <button type="button" class="btn btn-primary" data-dismiss="modal" id="close">确定</button>
+            <!-- <button type="button" class="btn btn-primary" data-dismiss="modal" id="close">确定</button> -->
+            <button type="button" class="btn btn-primary" id="close">停止</button>
           </div>
         </div>
       </div>
@@ -172,8 +173,18 @@
         $("#loginfo").html(host);
         ws = new WebSocket(wsUrl);
         console.log(ws);
+        var app_name = group + ":" +app;
+        var hello = { "server_id": server_id, "app_name": app_name };
+
+        ws.onopen = function() {
+            ws.send(JSON.stringify(hello));
+        };
+
+        
         ws.onmessage = function(event) {
-                document.getElementById('loginfo').innerHTML = event.data;
+            var loginfo = document.getElementById('loginfo')
+            loginfo.innerHTML += event.data;
+            loginfo.scrollTop = loginfo.scrollHeight
             };
         // $("#loginfo").load("/");
                 // window.open("/" + server_id + "/" + group + "/" + app + "/tail/")
@@ -183,6 +194,13 @@
             console.log(ws);
             ws.close()
         });
+
+        $('#dialog_log').on('hide.bs.modal', function (e) {
+          // do something...
+          console.log("close");
+          console.log(ws);
+            ws.close()
+        })
     });
 
 

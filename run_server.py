@@ -28,6 +28,13 @@ import select
 from connect import Tty, User, Asset, PermRole, logger, get_object, gen_resource
 from connect import TtyLog, Log, Session, user_have_perm, get_group_user_perm, MyRunner, ExecLog
 
+
+from jprocess.supervisor_manage import get_status, get_server_id_mapping, get_group_mapping, batch_group_opt, batch_server_opt
+
+group_mapping = get_group_mapping()
+server_id_mapping = get_server_id_mapping()
+
+
 try:
     import simplejson as json
 except ImportError:
@@ -459,13 +466,44 @@ class WebTerminalHandler(tornado.websocket.WebSocketHandler):
 #     def on_close(self):
 #         self.close()
 
+def format_log(log):
+    return '<div>%s</div>' % (log,)
+
 class JprocessLog(tornado.websocket.WebSocketHandler):
+    def initialize(self):
+        self.sessionId_flag = {}
+    @django_request_support
+    @require_auth('user')
     def open(self):
-        for i in xrange(10):
-            self.write_message('Welcome to WebSocket' + str(i))
-            time.sleep(1)
+
+        pass
+        # for log in server_id_mapping.get(server_id).stop_process(app_name):
+        # # for i in xrange(10):
+        #     print log
+        #     self.write_message(log)
+            # time.sleep(1)
+    def on_message(self, message):
+        sessionId = self.get_secure_cookie('sessionid')
+        print sessionId
+        self.sessionId_flag.update({sessionId:True})
+
+        data = json.loads(message)
+        def sendLog():
+            for log in server_id_mapping.get(data.get('server_id')).tail_log(data.get('app_name'),format_log):
+            # print log.decode('utf-8').encode('gbk')
+                try:
+                    self.write_message(log)
+                except tornado.websocket.WebSocketClosedError, e:
+                    break
+                
+        new_jp = threading.Thread(target=sendLog)
+        new_jp.start()
+        print message
+        
+
     def on_close(self):
-        # print 'exit',self.request.remote_ip
+        print 'exit',self.request.remote_ip
+        logger.debug('Websocket: jprocess_log %s close' % self.request.remote_ip)
         pass
 
 

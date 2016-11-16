@@ -81,7 +81,11 @@ class Server(object):
         offset = 0
         func = self.rpc_proxy.supervisor.tailProcessLog
         while True:
-            log, offset, ret = func(app_name, offset, 1000)
-            time.sleep(0.5)
-            for log in log.split('\n'):
-                yield format_func(log)
+            try:
+                log, offset, ret = func(app_name, offset, 1000)
+                time.sleep(0.5)
+                for log in log.split('\n'):
+                    yield format_func(log)
+            except Exception, e:
+                time.sleep(1)
+                print type(e)

@@ -34,5 +34,6 @@
 ## 更新日志
 
 > 2016-10-27 初步实现 web 操作 supervisor  rpc ,进行 进程管理
+> 2016-11-16 实现 实时 tail 日志 websocket
 
-![jprocess](./screenshots/jprocess.gif)
+![jprocess](./screenshots/taillog.gif)

@@ -14,6 +14,13 @@ SERVERS = [
         port=9002,
         user='deploy',
         password='ODk4Nwo=15532OTk3Mgo='
+    ),
+   Server(
+        name='Web-server',
+        host='104.224.134.223',
+        port=9001,
+        user='user',
+        password='123'
     )
 ]
 
@@ -25,5 +32,9 @@ GROUPS = [
     {
         'name': 'java-platform',
         'apps': ['java-platform.wenwo-platform']
+    },
+    {
+        'name': 'Web-server',
+        'apps': ['Web-server.django','Web-server.ssserver','Web-server.celery']
     }
 ]

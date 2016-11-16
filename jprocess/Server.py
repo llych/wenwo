@@ -5,7 +5,7 @@ import time
 import xmlrpclib
 from uuid import uuid4
 import logging
-
+import xml.parsers
 
 class Server(object):
     def __init__(self, host, port, user, password, name=None):
@@ -86,6 +86,8 @@ class Server(object):
                 time.sleep(0.5)
                 for log in log.split('\n'):
                     yield format_func(log)
-            except Exception, e:
+            except xml.parsers.expat.ExpatError, e:
                 time.sleep(1)
                 print type(e)
+            except Exception, e:
+                break

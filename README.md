@@ -41,3 +41,5 @@
 >实现发布系统 ,调用 ansible playbook
 
 ![发布系统](./screenshots/jdeploy.png)
+
+![载入项目](./screenshots/jdeploy2.png)

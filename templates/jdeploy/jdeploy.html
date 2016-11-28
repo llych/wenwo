@@ -30,8 +30,7 @@
                         <li role="presentation"><a href="/servers">服务器列表</a></li>
                     </ul> -->
                      <div class="col-sm-12 page-header">
-                     <button type="button" class="btn btn-primary btn-xs">载入项目</button>
-
+                     <button type="button" class="btn btn-primary btn-xs" id="load">载入项目<span class="caret"></span></button>
 <!--                         <div class="col-sm-4 col-sm-offset-4">
                             <select class="form-control " name="ipList">
                               <option>java平台</option>
@@ -126,15 +125,15 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title" id="myModalLabel">IP列表</h4>
+            <h4 class="modal-title" id="myModalLabel">服务</h4>
           </div>
           <div class="modal-body" id="m-body">
           <span id="out"></span>
-            <textarea class="form-control" rows="8" id="ips" placeholder="192.168.1.1"></textarea>
+            
           </div>
           <div class="modal-footer">
             <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-            <button type="button" class="btn btn-primary"  id="save">保存</button>
+            <button type="button" class="btn btn-primary"  id="save">确认</button>
             <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
           </div>
         </div>
@@ -165,7 +164,11 @@
     $(document).ready(function(){
         
         $("#edit").click(function(){
-            $("#ip_name").remove();
+             $("#m-body").empty();
+            var input_name = `
+            <textarea class="form-control" rows="8" id="ips" placeholder="192.168.1.1"></textarea>
+            `;
+            $("#m-body").prepend(input_name);
             $('#dialog_edit').modal();
         }) ;
         $("#save").click(function(){
@@ -174,11 +177,79 @@
         }) ;
 
         $("#add").click(function(){
-            $("#ip_name").remove();
-            var input_name = '<input type="text" class="form-control" id="ip_name" placeholder="ip列表名">' ;
+            $("#m-body").empty();
+            var input_name = `
+            <input type="text" class="form-control" id="ip_name" placeholder="ip列表名">
+            <textarea class="form-control" rows="8" id="ips" placeholder="192.168.1.1"></textarea>
+            `;
             $("#m-body").prepend(input_name);
             $('#dialog_edit').modal();
         }) ;
+
+        $("#load").click(function(){
+            $("#m-body").empty();
+            var table_data = `
+        <div class="col-md-12 column">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            修改时间
+                        </th>
+                        <th>
+                            项目名称
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            11/11/2016
+                        </td>
+                        <td>
+                            java平台
+                        </td>
+                    </tr>
+                    <tr class="success">
+                        <td>
+                            12/11/2016
+                        </td>
+                        <td>
+                            web服务
+                        </td>
+                    </tr>
+                    <tr class="error">
+                        <td>
+                            15/11/2016
+                        </td>
+                        <td>
+                            nginx
+                        </td>
+                    </tr>
+                    <tr class="warning">
+                        <td>
+                            03/11/2012
+                        </td>
+                        <td>
+                            数据库
+                        </td>
+                    </tr>
+                    <tr class="info">
+                        <td>
+                            15/11/2016
+                        </td>
+                        <td>
+                            MQ
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+            ` ;
+            $("#m-body").prepend(table_data);
+            $('#dialog_edit').modal();
+        }) ;
+
     });
 </script>
 {% endblock %}

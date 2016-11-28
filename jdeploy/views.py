@@ -19,9 +19,9 @@ def purl_url(url):
 
 @require_role('admin')
 def jdeploy(request):
-    """ 上线管理 """
+    """ 发布管理 """
 
-    path1 , path2 ='上线管理','上线'
+    path1 , path2 ='发现管理','项目上线'
     return my_render('jdeploy/jdeploy.html',locals(),request)
 
 

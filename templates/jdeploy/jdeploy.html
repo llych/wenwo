@@ -30,6 +30,7 @@
                         <li role="presentation"><a href="/servers">服务器列表</a></li>
                     </ul> -->
                      <div class="col-sm-12 page-header">
+                     <button type="button" class="btn btn-primary btn-xs">载入项目</button>
 
 <!--                         <div class="col-sm-4 col-sm-offset-4">
                             <select class="form-control " name="ipList">
@@ -69,8 +70,8 @@
                             </select>
                             
                         </div>
-                        <button type="button" class="btn btn-info">编辑</button>
-                        <button type="button" class="btn btn-success">新增</button>
+                        <button type="button" class="btn btn-info" id="edit">编辑</button>
+                        <button type="button" class="btn btn-success" id="add">新增</button>
                       </div>
 
                       <div class="form-group">
@@ -120,20 +121,21 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="dialog_log" href="/jprocess/jprocess/jprocess_list/" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="dialog_edit"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title" id="myModalLabel">日志</h4>
+            <h4 class="modal-title" id="myModalLabel">IP列表</h4>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" id="m-body">
           <span id="out"></span>
-            <div id="loginfo" style="overflow-y:auto;max-height:420px;" ></div>
+            <textarea class="form-control" rows="8" id="ips" placeholder="192.168.1.1"></textarea>
           </div>
           <div class="modal-footer">
             <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-            <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+            <button type="button" class="btn btn-primary"  id="save">保存</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
           </div>
         </div>
       </div>
@@ -162,6 +164,21 @@
             };
     $(document).ready(function(){
         
+        $("#edit").click(function(){
+            $("#ip_name").remove();
+            $('#dialog_edit').modal();
+        }) ;
+        $("#save").click(function(){
+           $("#ips").val("192.168.1.2\n192.168.1.3");
+            console.log("xx");
+        }) ;
+
+        $("#add").click(function(){
+            $("#ip_name").remove();
+            var input_name = '<input type="text" class="form-control" id="ip_name" placeholder="ip列表名">' ;
+            $("#m-body").prepend(input_name);
+            $('#dialog_edit').modal();
+        }) ;
     });
 </script>
 {% endblock %}

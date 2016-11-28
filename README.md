@@ -24,7 +24,7 @@
 ## 配合公司业务新增功能
 
 * varnish 缓存刷新  (完成)
-* 上线管理
+* 分布管理(上线)
 * 进程管理(supervisor rpc)   (完成)
 
 ![varnish](./screenshots/jcache.gif)
